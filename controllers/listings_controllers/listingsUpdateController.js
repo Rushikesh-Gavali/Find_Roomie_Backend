@@ -1,6 +1,7 @@
 
 const pool =require('../../database/connection');
 const {updateListing}=require('../../services/listings_services/listingsUpdateService');
+const {deletePhotoFromS3}=require('../../middlewares/awsDeleteOldPhoto');
 
 const fs=require('fs');
 
@@ -15,21 +16,22 @@ const updateListingDetails=async (req,res)=>{
     
     if(req.file){
       image=`/public/listings/${req.file.filename}`;
-      console.log(image);
+      // console.log(image);
 
       const find_photo=await pool.query(`SELECT url from photos WHERE listings_id=$1`,[listingId]);
       const old_image_path=find_photo.rows[0]?.url;
 
       //Delete old Photo From Files...!
       if(old_image_path){
-        const full_path=path.join(__dirname,'..','..',old_image_path);
-        fs.unlink(full_path,(err)=>{
-          if(err){
-            console.error(`Error Deleting Old file ${err}`);
-          }else{
-            console.log("Old Photo Path Deleted Successfully");
-          }
-        });
+        deletePhotoFromS3(old_image_path);
+        // const full_path=path.join(__dirname,'..','..',old_image_path);
+        // fs.unlink(full_path,(err)=>{
+        //   if(err){
+        //     console.error(`Error Deleting Old file ${err}`);
+        //   }else{
+        //     console.log("Old Photo Path Deleted Successfully");
+        //   }
+        // });
       }
 
       const result =await updateListing(listingId, address, state, country, pincode, latitude, longitude, deposit, rent, available_from, no_of_current_roommates, no_of_curret_female_roommates, no_of_curret_male_roommates, no_of_roommates_required, gender_preference, is_furnished, min_age, max_age,image);

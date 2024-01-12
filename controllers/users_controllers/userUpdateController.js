@@ -18,14 +18,15 @@ const updateUserDetails = async (req, res) => {
         const old_photo_path = find_user.rows[0]?.photo;
 
         if (old_photo_path) {
-          const fullPath = path.join(__dirname,'..', '..', old_photo_path);
-          fs.unlink(fullPath, (err) => {
-            if (err) {
-              console.error(`Error deleting old File ${err}`);
-            } else {
-              console.log('Old Photo Deleted Successfully...!');
-            }
-          });
+          deletePhotoFromS3(old_photo_path);
+          // const fullPath = path.join(__dirname,'..', '..', old_photo_path);
+          // fs.unlink(fullPath, (err) => {
+          //   if (err) {
+          //     console.error(`Error deleting old File ${err}`);
+          //   } else {
+          //     console.log('Old Photo Deleted Successfully...!');
+          //   }
+          // });
         }
 
         const result = await updateUser(userId, username, email, password, mobile_no, whatsapp_no, photo);

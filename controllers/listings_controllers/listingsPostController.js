@@ -23,7 +23,8 @@ async function createListing(req, res) {
     } = req.body;
 
     const userId = req.userId; 
-    const photoUrl = req.file ? `/public/listings/${req.file.filename}` : 'default_photo_url';
+    // const photoUrl = req.file ? `/public/listings/${req.file.filename}` : 'default_photo_url';
+    const photoUrl=req.file.location;
     // const photoUrl=req.file.location
 
     const listingData = {
