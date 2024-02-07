@@ -24,7 +24,7 @@ async function createListing(req, res) {
 
     const userId = req.userId; 
     // const photoUrl = req.file ? `/public/listings/${req.file.filename}` : 'default_photo_url';
-    const photoUrl=req.file.location;
+    const photoUrl=req.file ? req.file.location : 'Photo Unavailable...!';
     // const photoUrl=req.file.location
 
     const listingData = {
@@ -59,7 +59,7 @@ async function createListing(req, res) {
     res.status(500).json({
       response_code:200,
       response_message:'error',
-       error: 'Error creating listing' });
+       error: 'Error creating listing',error });
   }
 }
 

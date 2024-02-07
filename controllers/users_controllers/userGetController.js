@@ -20,7 +20,7 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.userId;
     const result = await userGetService.getSingleUser(userId);
 
     if (result.rows.length > 0) {
