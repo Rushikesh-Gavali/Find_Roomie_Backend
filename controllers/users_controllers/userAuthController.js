@@ -1,3 +1,4 @@
+
 const userAuthService = require('../../services/users_services/userAuthService');
 const {uploadUsers}=require('../../middlewares/multerMiddleware');
 
@@ -19,10 +20,10 @@ async function signup(req, res) {
       // const photo = req.file ? `/public/users/${req.file.filename}` : 'path not found...!';
       const photo=req.file ? req.file.filename :'Path Not Found...!'
       const result = await userAuthService.signupUser(username, email, password, gender, mobile_no, whatsapp_no, dob, photo);
-      
+      console.log("Restarted!!!!")
       res.status(200).json({
         response_code:200,
-        response_message: 'Success', 
+        response_message: 'Success Test', 
         data: result.rows[0].id
       });
     });
