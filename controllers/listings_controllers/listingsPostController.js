@@ -1,6 +1,7 @@
 const listingsPostService = require('../../services/listings_services/listingsPostService');
 
 async function createListing(req, res) {
+ 
   try {
     const {
       address,
@@ -23,6 +24,7 @@ async function createListing(req, res) {
     } = req.body;
 
     const userId = req.userId; 
+    console.log("Listing Data", req.body ,userId)
     // const photoUrl = req.file ? `/public/listings/${req.file.filename}` : 'default_photo_url';
     const photoUrl=req.file ? req.file.location : 'Photo Unavailable...!';
     // const photoUrl=req.file.location

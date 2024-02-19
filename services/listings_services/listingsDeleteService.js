@@ -25,5 +25,5 @@ const softDeleteListing = async (listingId, userId) => {
 };
 
 module.exports = {
-  softDeleteListing,
+  softDeleteListing
 };
