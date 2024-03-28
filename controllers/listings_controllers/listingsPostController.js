@@ -57,11 +57,12 @@ async function createListing(req, res) {
       Data: result,
     });
   } catch (error) {
-    console.error('Error creating listing:', error);
+    console.error('Error creating listing controller:', error.message); // Log the specific error message
+   
     res.status(500).json({
       response_code:200,
       response_message:'error',
-       error: 'Error creating listing',error });
+       error: 'Error creating listing'+ error });
   }
 }
 

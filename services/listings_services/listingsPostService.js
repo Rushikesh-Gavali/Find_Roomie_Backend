@@ -1,6 +1,7 @@
 const pool = require('../../database/connection');
 
 async function createListing(listingData, userId, photoUrl) {
+  console.log(photoUrl +"Photo Url")
   try {
     const {
       address,
@@ -81,7 +82,8 @@ async function createListing(listingData, userId, photoUrl) {
 
     return result.rows[0]; 
   } catch (error) {
-    throw new Error('Error creating listing:', error);
+    console.error('Error creating listing:', error.message); // Log the specific error message
+    throw new Error('Error creating listing: ' + error.message);
   }
 }
 

@@ -3,26 +3,59 @@ const userAuthService = require('../../services/users_services/userAuthService')
 const {uploadUsers}=require('../../middlewares/multerMiddleware');
 
 //For Signup...!
+// async function signup(req, res) {
+//   try {
+//     uploadUsers.single('photo')(req, res, async function (err) {
+//       if (err) {
+//         console.error(`Error uploading file: ${err}`);
+//         return res.status(500).json({
+//           response_code:500,
+//           response_message:'error',
+//           error: 'Error uploading user photo' 
+//           });
+//       }
+      
+//       const { username, email, password, gender, mobile_no, whatsapp_no, dob } = req.body;
+
+//       // const photo = req.file ? `/public/users/${req.file.filename}` : 'path not found...!';
+//       const photo=req.file ? req.file.filename :'Path Not Found...!'
+//       const result = await userAuthService.signupUser(username, email, password, gender, mobile_no, whatsapp_no, dob, photo);
+//       console.log("Restarted!!!!")
+//       res.status(200).json({
+//         response_code:200,
+//         response_message: 'Success Test', 
+//         data: result.rows[0].id
+//       });
+//     });
+//   } catch (error) {
+//     console.error('Error uploading user data:', error);
+//     res.status(500).json({ 
+//       respomse_code:500,
+//       respomse_message:'error',
+//       error: 'Error uploading user data' });
+//   }
+// }
+
 async function signup(req, res) {
   try {
     uploadUsers.single('photo')(req, res, async function (err) {
       if (err) {
         console.error(`Error uploading file: ${err}`);
         return res.status(500).json({
-          response_code:500,
-          response_message:'error',
+          response_code: 500,
+          response_message: 'error',
           error: 'Error uploading user photo' 
-          });
+        });
       }
       
       const { username, email, password, gender, mobile_no, whatsapp_no, dob } = req.body;
 
       // const photo = req.file ? `/public/users/${req.file.filename}` : 'path not found...!';
-      const photo=req.file ? req.file.filename :'Path Not Found...!'
+      const photo = req.file ? req.file.filename : 'Path Not Found...!';
       const result = await userAuthService.signupUser(username, email, password, gender, mobile_no, whatsapp_no, dob, photo);
       console.log("Restarted!!!!")
       res.status(200).json({
-        response_code:200,
+        response_code: 200,
         response_message: 'Success Test', 
         data: result.rows[0].id
       });
@@ -30,11 +63,13 @@ async function signup(req, res) {
   } catch (error) {
     console.error('Error uploading user data:', error);
     res.status(500).json({ 
-      respomse_code:500,
-      respomse_message:'error',
-      error: 'Error uploading user data' });
+      response_code: 500,
+      response_message: 'error',
+      error: 'Error uploading user data' 
+    });
   }
 }
+
 
 //For Login...!
 async function login(req, res) {
